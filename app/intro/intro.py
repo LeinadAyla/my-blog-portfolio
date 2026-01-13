@@ -1,7 +1,9 @@
-from flask import render_template
+from flask import Blueprint, render_template
 from datetime import datetime
 from random import sample
-from . import intro_bp
+
+# DEFINIÇÃO CORRETA: O Blueprint é criado aqui dentro
+intro_bp = Blueprint('intro_bp', __name__, template_folder='templates')
 
 class BannerColors:
     COLORS = [
@@ -12,7 +14,8 @@ class BannerColors:
 
 @intro_bp.route("/")
 def home():
-    return render_template("index.html", data={
+    # Nota: O Flask agora vai procurar em templates/intro/index.html
+    return render_template("intro/index.html", data={
         "now": datetime.now(),
         "banner_colors": BannerColors().get_colors()
     })

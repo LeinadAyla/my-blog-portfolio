@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="mt-4">Meu Blog de Engenharia</h1>
+    <hr>
+
+    {% for post in posts %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title text-primary">{{ post.titulo }}</h2>
+                <p class="card-text">{{ post.conteudo }}</p>
+                <div class="text-muted small">
+                    Publicado em: {{ post.data_criacao.strftime('%d/%m/%Y %H:%M') }}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">Ainda não há postagens no blog.</div>
+    {% endfor %}
+{% endblock %}
