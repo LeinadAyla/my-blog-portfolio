@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title">{{ perfil.nome }}</h2>
+                <h6 class="card-subtitle mb-2 text-muted">{{ perfil.cargo }}</h6>
+                <hr>
+                <p class="card-text">{{ perfil.bio }}</p>
+                <p>Este blog foi construído seguindo os padrões do Capítulo 7 de <em>The Well-Grounded Python Developer</em>.</p>
+                
+                <a href="{{ url_for('intro_bp.home') }}" class="btn btn-outline-primary">Voltar para Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
