@@ -1,0 +1,24 @@
+/* Estilo base para o Banner */
+.banner.card {
+    border: 0;
+    border-radius: 0;
+    background-color: #e9ecef;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* Oculta o banner por padrão (Mobile First) */
+.banner {
+    display: none;
+}
+
+/* Media Query: Exibe o banner apenas em telas de desktop (min 768px) */
+@media (min-width: 768px) {
+    .banner {
+        display: block;
+    }
+}
+
+/* Garante que o rodapé fique sempre no fundo */
+body {
+    min-height: 100vh;
+}
