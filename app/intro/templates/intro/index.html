@@ -3,15 +3,21 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card bg-light mb-4 shadow-sm">
+        <div class="col-md-8 offset-md-2 mt-5">
+            <div class="card bg-light mb-4 shadow-sm" style="border-top: 10px solid {{ data['active_color'] }}; transition: border-color 0.5s ease;">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-clock"></i> Status do Sistema</h5>
                     <p class="card-text">Data e hora atual: <strong>{{ data["now"].strftime('%d/%m/%Y %H:%M:%S') }}</strong></p>
+                    <p class="card-text">
+                        Banner Ativo: 
+                        <span class="badge rounded-pill" style="background-color: {{ data['active_color'] }}; color: #000; border: 1px solid #ccc;">
+                            {{ data['active_color'] }}
+                        </span>
+                    </p>
                 </div>
             </div>
 
-            <div class="card mb-4">
+            <div class="card mb-4 shadow-sm">
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0">Cores Disponíveis para o Banner</h5>
                 </div>
@@ -25,8 +31,8 @@
                 </ul>
             </div>
 
-            <button class="btn btn-outline-primary shadow-sm" onclick="location.reload();">
-                <i class="bi bi-arrow-clockwise"></i> Atualizar Cores
+            <button class="btn btn-primary btn-lg w-100 shadow-sm" onclick="location.reload();">
+                <i class="bi bi-arrow-clockwise"></i> Atualizar Cores e Status
             </button>
         </div>
     </div>

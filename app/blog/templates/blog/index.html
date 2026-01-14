@@ -1,20 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="mt-4">Meu Blog de Engenharia</h1>
-    <hr>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+        <h1 class="display-5">Meu Blog de Engenharia</h1>
+        
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('blog_bp.novo_post') }}" class="btn btn-success shadow-sm">
+                <i class="bi bi-plus-circle"></i> + Escrever Novo Post
+            </a>
 
-    {% for post in posts %}
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h2 class="card-title text-primary">{{ post.titulo }}</h2>
-                <p class="card-text">{{ post.conteudo }}</p>
-                <div class="text-muted small">
-                    Publicado em: {{ post.data_criacao.strftime('%d/%m/%Y %H:%M') }}
+            {% if session.get('logado') %}
+                <a href="{{ url_for('blog_bp.logout') }}" class="btn btn-outline-danger shadow-sm">
+                    Sair (Logout)
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-md-12">
+                <div class="card mb-4 shadow-sm border-0">
+                    <div class="card-body">
+                        <h2 class="card-title text-primary">{{ post.titulo }}</h2>
+                        <p class="card-text">{{ post.conteudo }}</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="text-muted small">
+                                <i class="bi bi-calendar-event"></i> 
+                                Publicado em: {{ post.data_criacao.strftime('%d/%m/%Y %H:%M') }}
+                            </div>
+
+                            {% if session.get('logado') %}
+                            <div class="btn-group shadow-sm">
+                                <a href="{{ url_for('blog_bp.editar_post', id=post.id) }}" 
+                                   class="btn btn-sm btn-outline-primary">
+                                   <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <a href="{{ url_for('blog_bp.excluir_post', id=post.id) }}" 
+                                   class="btn btn-sm btn-outline-danger" 
+                                   onclick="return confirm('Missão de exclusão: Confirma?')">
+                                   <i class="bi bi-trash"></i> Excluir
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% else %}
-        <div class="alert alert-warning">Ainda não há postagens no blog.</div>
-    {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning">Ainda não há postagens no blog.</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
