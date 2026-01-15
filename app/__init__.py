@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 # Instância do banco de dados (SQLAlchemy)
 db = SQLAlchemy()
@@ -19,6 +20,9 @@ def create_app():
 
     # Inicializa o db com as configurações deste app
     db.init_app(app)
+
+    # Inicializa o Migrate para controle de versão do banco de dados
+    migrate = Migrate(app, db)
 
     # Registro dos Blueprints (modularização do código)
     from .intro.intro import intro_bp

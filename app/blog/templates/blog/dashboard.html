@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard de Engenharia{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Dashboard de Engenharia</h1>
+
+    <div class="row">
+        <!-- Card Total de Automações -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-header">Monitor de Automação</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total de Automações Disponíveis</h5>
+                    <p class="card-text display-4">{{ metricas.total_automacoes }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Posts por Categoria -->
+        <div class="col-md-8 mb-4">
+            <div class="card h-100">
+                <div class="card-header">Análise de Conteúdo</div>
+                <div class="card-body">
+                    <h5 class="card-title">Posts por Categoria</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Segurança
+                            <span class="badge bg-danger rounded-pill">{{ metricas.seguranca }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Automação
+                            <span class="badge bg-success rounded-pill">{{ metricas.automacao }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Estudos
+                            <span class="badge bg-info rounded-pill">{{ metricas.estudos }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

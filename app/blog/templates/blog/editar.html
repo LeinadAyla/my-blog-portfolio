@@ -8,6 +8,17 @@
                 <h2 class="mb-0 h4"><i class="bi bi-pencil-square"></i> Editar Postagem</h2>
             </div>
             <div class="card-body p-4">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
                 <form method="POST">
                     <div class="mb-3">
                         <label for="titulo" class="form-label font-weight-bold">Título</label>
@@ -17,6 +28,30 @@
                         <label for="conteudo" class="form-label font-weight-bold">Conteúdo</label>
                         <textarea name="conteudo" class="form-control" id="conteudo" rows="6" required>{{ post.conteudo }}</textarea>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label font-weight-bold">Categoria</label>
+                        <select class="form-select" id="categoria" name="categoria">
+                            <option value="">Selecione uma Categoria</option>
+                            {% for cat in categorias_disponiveis %}
+                                <option value="{{ cat }}" {% if post.categoria == cat %}selected{% endif %}>{{ cat }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="codigo_snippet" class="form-label font-weight-bold">Snippet de Código (Opcional)</label>
+                        <textarea class="form-control" id="codigo_snippet" name="codigo_snippet" rows="5">{{ post.codigo_snippet if post.codigo_snippet else '' }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="livro" class="form-label font-weight-bold">Vincular a um Livro (Opcional)</label>
+                        <select class="form-select" id="livro" name="livro_id">
+                            <option value="">Nenhum Livro</option>
+                            {% for livro in livros %}
+                                <option value="{{ livro.id }}" {% if post.livro_id == livro.id %}selected{% endif %}>{{ livro.titulo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg">Salvar Alterações</button>
                         <a href="{{ url_for('blog_bp.lista_posts') }}" class="btn btn-outline-secondary">Cancelar</a>

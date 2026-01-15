@@ -9,8 +9,10 @@
             <a href="{{ url_for('blog_bp.novo_post') }}" class="btn btn-success shadow-sm">
                 <i class="bi bi-plus-circle"></i> + Escrever Novo Post
             </a>
-
             {% if session.get('logado') %}
+                <a href="{{ url_for('blog_bp.gerenciar_livros') }}" class="btn btn-info shadow-sm">
+                    <i class="bi bi-book"></i> Gerenciar Livros
+                </a>
                 <a href="{{ url_for('blog_bp.logout') }}" class="btn btn-outline-danger shadow-sm">
                     Sair (Logout)
                 </a>
@@ -24,8 +26,12 @@
             <div class="col-md-12">
                 <div class="card mb-4 shadow-sm border-0">
                     <div class="card-body">
-                        <h2 class="card-title text-primary">{{ post.titulo }}</h2>
-                        <p class="card-text">{{ post.conteudo }}</p>
+                        <h2 class="card-title">
+                            <a href="{{ url_for('blog_bp.ver_post', post_id=post.id) }}" class="text-primary text-decoration-none">
+                                {{ post.titulo }}
+                            </a>
+                        </h2>
+                        <p class="card-text">{{ post.conteudo | truncate(200) }}</p>
                         
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="text-muted small">
@@ -33,13 +39,15 @@
                                 Publicado em: {{ post.data_criacao.strftime('%d/%m/%Y %H:%M') }}
                             </div>
 
-                            {% if session.get('logado') %}
+                            {# --- BLOCO FUSÃO DESCRACADOR --- #}
+                            {% if session.get('logado') and post.id %}
                             <div class="btn-group shadow-sm">
-                                <a href="{{ url_for('blog_bp.editar_post', id=post.id) }}" 
+                                {# Link direto evita que o Flask trave na renderização #}
+                                <a href="/blog/editar/{{ post.id }}" 
                                    class="btn btn-sm btn-outline-primary">
                                    <i class="bi bi-pencil"></i> Editar
                                 </a>
-                                <a href="{{ url_for('blog_bp.excluir_post', id=post.id) }}" 
+                                <a href="/blog/excluir/{{ post.id }}" 
                                    class="btn btn-sm btn-outline-danger" 
                                    onclick="return confirm('Missão de exclusão: Confirma?')">
                                    <i class="bi bi-trash"></i> Excluir
@@ -52,7 +60,7 @@
             </div>
         {% else %}
             <div class="col-12">
-                <div class="alert alert-warning">Ainda não há postagens no blog.</div>
+                <div class="alert alert-warning shadow-sm">Ainda não há postagens no blog técnico.</div>
             </div>
         {% endfor %}
     </div>

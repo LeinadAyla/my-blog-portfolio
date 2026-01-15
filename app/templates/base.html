@@ -22,6 +22,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('blog_bp.lista_posts') }}">Blog</a>
                     </li>
+                    {% if session.get('logado') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blog_bp.dashboard') }}">Dashboard</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('about.sobre') }}">Sobre Mim</a>
                     </li>
